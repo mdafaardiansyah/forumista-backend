@@ -5,6 +5,7 @@ import (
 	"github.com/mdafaardiansyah/forumista-backend/internal/configs"
 	"github.com/mdafaardiansyah/forumista-backend/internal/handlers/memberships"
 	membershipRepo "github.com/mdafaardiansyah/forumista-backend/internal/repository/memberships"
+	membershipSvc "github.com/mdafaardiansyah/forumista-backend/internal/service/memberships"
 	"github.com/mdafaardiansyah/forumista-backend/pkg/internalsql"
 	"log"
 )
@@ -34,9 +35,11 @@ func main() {
 		log.Fatal("Gagal inisialisasi ke Database", err)
 	}
 
-	_ = membershipRepo.NewRepository(db)
+	membershipRepo := membershipRepo.NewRepository(db)
 
-	membershipHandler := memberships.NewHandler(r)
+	membershipService := membershipSvc.NewService(membershipRepo)
+
+	membershipHandler := memberships.NewHandler(r, membershipService)
 	membershipHandler.RegisterRoute()
 
 	r.Run(cfg.Service.Port)
