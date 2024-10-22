@@ -3,6 +3,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/mdafaardiansyah/forumista-backend/internal/configs"
+	"github.com/mdafaardiansyah/forumista-backend/internal/handlers/memberships"
+	"github.com/mdafaardiansyah/forumista-backend/pkg/internalsql"
 	"log"
 )
 
@@ -25,6 +27,14 @@ func main() {
 	}
 	cfg = configs.Get()
 	log.Println("config", cfg)
+
+	db, err := internalsql.Connect(cfg.Database.DataSourceName)
+	if err != nil {
+		log.Fatal("Gagal inisialisasi ke Database", err)
+	}
+
+	membershipHandler := memberships.NewHandler(r)
+	membershipHandler.RegisterRoute()
 
 	r.Run(cfg.Service.Port)
 }
