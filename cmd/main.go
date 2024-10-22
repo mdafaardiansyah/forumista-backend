@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/mdafaardiansyah/forumista-backend/internal/configs"
 	"github.com/mdafaardiansyah/forumista-backend/internal/handlers/memberships"
+	membershipRepo "github.com/mdafaardiansyah/forumista-backend/internal/repository/memberships"
 	"github.com/mdafaardiansyah/forumista-backend/pkg/internalsql"
 	"log"
 )
@@ -32,6 +33,8 @@ func main() {
 	if err != nil {
 		log.Fatal("Gagal inisialisasi ke Database", err)
 	}
+
+	_ = membershipRepo.NewRepository(db)
 
 	membershipHandler := memberships.NewHandler(r)
 	membershipHandler.RegisterRoute()
