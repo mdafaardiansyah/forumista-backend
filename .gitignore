@@ -23,6 +23,7 @@ go.work.sum
 
 # env file
 .env
+internal/configs/config.yaml
 
 #makefile
 Makefile
