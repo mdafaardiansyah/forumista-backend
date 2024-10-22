@@ -14,6 +14,7 @@ func NewRepository(db *sql.DB) *repository {
 	if err != nil {
 		log.Println("error query", err)
 	}
+	defer rows.Close() //close the rows, for anticipated memory leaks
 
 	for rows.Next() {
 		var id int64
