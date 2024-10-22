@@ -15,13 +15,13 @@ func main() {
 
 	err := configs.Init(
 		configs.WithConfigFolder(
-			[]string{"./internal/configs"},
+			[]string{"./internal/configs/"},
 		),
 		configs.WithConfigFile("config"),
 		configs.WithConfigType("yaml"),
 	)
 	if err != nil {
-		log.Fatal("Gagal inisialisasi Config")
+		log.Fatal("Gagal inisialisasi Config", err)
 	}
 	cfg = configs.Get()
 	log.Println("config", cfg)
