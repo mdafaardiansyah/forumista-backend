@@ -2,6 +2,7 @@ package memberships
 
 import (
 	"context"
+	"database/sql"
 	"github.com/mdafaardiansyah/forumista-backend/internal/model/memberships"
 )
 
@@ -14,6 +15,9 @@ func (r *repository) GetUser(ctx context.Context, email, username string) (*memb
 
 	err := row.Scan(&response.ID, &response.Email, &response.Password, &response.Username, &response.CreatedAt, &response.UpdatedAt, &response.CreatedBy, &response.UpdatedBy)
 	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
 		return nil, err
 	}
 
