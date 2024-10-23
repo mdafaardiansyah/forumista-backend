@@ -2,6 +2,7 @@ package memberships
 
 import (
 	"context"
+	"github.com/mdafaardiansyah/forumista-backend/internal/configs"
 	"github.com/mdafaardiansyah/forumista-backend/internal/model/memberships"
 )
 
@@ -11,11 +12,13 @@ type membershipRepository interface {
 }
 
 type service struct {
+	cfg            *configs.Config
 	membershipRepo membershipRepository
 }
 
-func NewService(membershipRepo membershipRepository) *service {
+func NewService(cfg *configs.Config, membershipRepo membershipRepository) *service {
 	return &service{
+		cfg:            cfg,
 		membershipRepo: membershipRepo,
 	}
 }
