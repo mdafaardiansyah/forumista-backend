@@ -32,7 +32,7 @@ func (h *Handler) RegisterRoute() {
 	route.POST("/sign-up", h.SignUp)
 	route.POST("/login", h.Login)
 
-	routeRefresh := route.Group("memberships")
+	routeRefresh := h.Group("memberships")
 	routeRefresh.Use(middleware.AuthRefreshMiddleware())
 	routeRefresh.POST("/refresh", h.Refresh)
 }
