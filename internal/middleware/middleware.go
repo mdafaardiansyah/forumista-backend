@@ -52,4 +52,5 @@ func AuthRefreshMiddleware() gin.HandlerFunc {
 		c.Set("username", username)
 		c.Next()
 	}
+
 }
